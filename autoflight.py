@@ -16,7 +16,8 @@ url = 'http://testflightapp.com/api/builds.json'
 def is_empty(text):
     return text == None or text == ""
 
-parser = OptionParser()
+usage = "Usage: %prog [options] my_apk_or_ipa_path"
+parser = OptionParser(usage=usage)
 parser.add_option( "-a", "--api-token", dest="api_token", default="", help="The API token from the testflight website." )
 parser.add_option( "-t", "--team-token", dest="team_token", default="",help="The team token from the testflight website." )
 parser.add_option( "-d", "--distribution-lists", dest="distribution_lists", default="",help="The name of the distribution list in testflight which should have access to this build." )
@@ -27,7 +28,7 @@ parser.add_option( "-c", "--config-file", dest="config_file", default="", help="
 (options, args) = parser.parse_args()
 
 if len(args) == 0:
-    print "Usage: ./autoflight.py my_apk_or_ipa_path"
+    parser.print_usage()
     exit(0)
 if len(args) == 1:
     build_file = args[0]
@@ -35,15 +36,14 @@ if len(args) == 1:
 if not os.path.exists(build_file):
     print "Error! %s file doesn't exist" % build_file
     exit(0)
-config_file = "config.json"
 
 params = {}
 if not is_empty(options.config_file):
     print "Reading configuration..."
     if os.path.exists(options.config_file):
-        json_file_content = open(config_file, "r").read()
+        json_file_content = open(options.config_file, "r").read()
     else:
-        print "Error! config.json file doesn't exist"
+        print "Error! %s file doesn't exist" % options.config_file
         exit(0)
     params = json.loads(json_file_content)
 else:
@@ -58,5 +58,6 @@ if not 'notes' in params or is_empty(params['notes']):
 
 print "Uploading file..."
 files = {'file': open(build_file, 'rb')}
-req = requests.post(url=url, data=params, files=files)
-print req.text
+print params
+#req = requests.post(url=url, data=params, files=files)
+#print req.text
