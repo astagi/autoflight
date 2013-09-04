@@ -58,6 +58,5 @@ if not 'notes' in params or is_empty(params['notes']):
 
 print "Uploading file..."
 files = {'file': open(build_file, 'rb')}
-print params
-#req = requests.post(url=url, data=params, files=files)
-#print req.text
+req = requests.post(url=url, data=params, files=files)
+print req.text
