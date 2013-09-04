@@ -56,9 +56,7 @@ else:
 if not 'notes' in params or is_empty(params['notes']):
     params['notes'] = raw_input("Release Notes - What's new in this build? \n> ")
 
-print params
-
 print "Uploading file..."
 files = {'file': open(build_file, 'rb')}
-#req = requests.post(url=url, data=params, files=files)
-#print req.text
+req = requests.post(url=url, data=params, files=files)
+print req.text
