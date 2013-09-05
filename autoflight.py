@@ -20,9 +20,10 @@ usage = "Usage: %prog [options] my_apk_or_ipa_path"
 parser = OptionParser(usage=usage)
 parser.add_option( "-a", "--api-token", dest="api_token", default="", help="The API token from the testflight website." )
 parser.add_option( "-t", "--team-token", dest="team_token", default="",help="The team token from the testflight website." )
-parser.add_option( "-d", "--distribution-lists", dest="distribution_lists", default="",help="The name of the distribution list in testflight which should have access to this build." )
+parser.add_option( "-l", "--distribution-lists", dest="distribution_lists", default="",help="The name of the distribution list in testflight which should have access to this build." )
 parser.add_option( "-n", "--notify", dest="notify", default=False, help="True if the distribution list should be notified for new builds." )
 parser.add_option( "-o", "--notes", dest="notes", default="", help="Your notes for this build." )
+parser.add_option( "-d", "--dsym", dest="dsym", default="", help="iOS ONLY, the zipped .dSYM corresponding to the build.")
 parser.add_option( "-c", "--config-file", dest="config_file", default="", help="Configuration file" )
 
 (options, args) = parser.parse_args()
@@ -34,7 +35,11 @@ if len(args) == 1:
     build_file = args[0]
 
 if not os.path.exists(build_file):
-    print "Error! %s file doesn't exist" % build_file
+    print "Error! %s build file doesn't exist" % build_file
+    exit(0)
+
+if not is_empty(options.dsym) and not os.path.exists(options.dsyn):
+    print "Error! %s dSYM file doesn't exist" % options
     exit(0)
 
 params = {}
@@ -58,5 +63,7 @@ if not 'notes' in params or is_empty(params['notes']):
 
 print "Uploading file..."
 files = {'file': open(build_file, 'rb')}
+if not is_empty(options.dsym):
+    files['dsym'] = open(options.dsym, 'rb')
 req = requests.post(url=url, data=params, files=files)
 print req.text
