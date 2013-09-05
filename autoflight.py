@@ -22,8 +22,8 @@ parser.add_option( "-a", "--api-token", dest="api_token", default="", help="The 
 parser.add_option( "-t", "--team-token", dest="team_token", default="",help="The team token from the testflight website." )
 parser.add_option( "-l", "--distribution-lists", dest="distribution_lists", default="",help="The name of the distribution list in testflight which should have access to this build." )
 parser.add_option( "-n", "--notify", dest="notify", default=False, help="True if the distribution list should be notified for new builds." )
-parser.add_option( "-o", "--notes", dest="notes", default="", help="Your notes for this build." )
-parser.add_option( "-d", "--dsym", dest="dsym", default="", help="iOS ONLY, the zipped .dSYM corresponding to the build.")
+parser.add_option( "-d", "--notes", dest="notes", default="", help="Your notes for this build." )
+parser.add_option( "-s", "--dsym", dest="dsym", default="", help="iOS ONLY, the zipped .dSYM corresponding to the build.")
 parser.add_option( "-c", "--config-file", dest="config_file", default="", help="Configuration file" )
 
 (options, args) = parser.parse_args()
