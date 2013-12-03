@@ -15,11 +15,11 @@ Create your config file in your working directory using json format
 ```
 Then launch
 ```
-$ ./autoflight.py my_apk_or_ipa_path --config-file config.json
+$ autoflight my_apk_or_ipa_path --config-file config.json
 ```
 Instead of using a config file, you can specify your parameters from the command line, launch the helper to see all the available options
 ```
-$ ./autoflight.py --help
+$ autoflight --help
 ```
 -------
 Relased under MIT license, Copyright (c) 2013 Andrea Stagi <stagi.andrea@gmail.com>
