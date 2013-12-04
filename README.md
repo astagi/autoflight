@@ -1,6 +1,6 @@
 Autoflight
 ==========
-A simple script to upload a given .apk or .ipa to testflight.
+A simple script to upload a given .apk or .ipa to TestFlight.
 
 Usage
 -----

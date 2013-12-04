@@ -4,7 +4,7 @@ from setuptools import setup, find_packages
 
 setup(name="autoflight",
       py_modules=['autoflight'],
-      version="0.0",
+      version="1.0",
       description="A simple script to upload a given .apk or .ipa to testflight.",
       license="MIT",
       author="Andrea Stagi",
