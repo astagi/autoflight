@@ -2,6 +2,12 @@ Autoflight
 ==========
 A simple script to upload a given .apk or .ipa to TestFlight.
 
+Install
+-------
+```
+# pip install autoflight
+```
+
 Usage
 -----
 Create your config file in your working directory using json format
