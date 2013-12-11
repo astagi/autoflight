@@ -40,7 +40,7 @@ def main():
         print "Error! %s build file doesn't exist" % build_file
         exit(0)
 
-    if not is_empty(options.dsym) and not os.path.exists(options.dsyn):
+    if not is_empty(options.dsym) and not os.path.exists(options.dsym):
         print "Error! %s dSYM file doesn't exist" % options
         exit(0)
 
