@@ -14,9 +14,6 @@ from optparse import OptionParser
 
 url = 'http://testflightapp.com/api/builds.json'
 
-def is_empty(text):
-    return text == None or text == ""
-
 def main():
     usage = "Usage: %prog [options] my_apk_or_ipa_path"
     parser = OptionParser(usage=usage)
@@ -40,12 +37,12 @@ def main():
         print "Error! %s build file doesn't exist" % build_file
         exit(0)
 
-    if not is_empty(options.dsym) and not os.path.exists(options.dsyn):
+    if options.dsym and not os.path.exists(options.dsym):
         print "Error! %s dSYM file doesn't exist" % options
         exit(0)
 
     params = {}
-    if not is_empty(options.config_file):
+    if options.config_file:
         print "Reading configuration..."
         if os.path.exists(options.config_file):
             json_file_content = open(options.config_file, "r").read()
@@ -60,12 +57,12 @@ def main():
         params['notes'] = options.notes
         params['distribution_lists'] = options.distribution_lists
 
-    if not 'notes' in params or is_empty(params['notes']):
+    if not 'notes' in params or not params['notes']:
         params['notes'] = raw_input("Release Notes - What's new in this build? \n> ")
 
     print "Uploading file..."
     files = {'file': open(build_file, 'rb')}
-    if not is_empty(options.dsym):
+    if options.dsym:
         files['dsym'] = open(options.dsym, 'rb')
     try:
         req = requests.post(url=url, data=params, files=files)
