@@ -42,6 +42,11 @@ def main():
         exit(0)
 
     params = {}
+    params['api_token'] = options.api_token
+    params['team_token'] = options.team_token
+    params['notify'] = options.notify
+    params['notes'] = options.notes
+    params['distribution_lists'] = options.distribution_lists
     if options.config_file:
         print "Reading configuration..."
         if os.path.exists(options.config_file):
@@ -49,13 +54,7 @@ def main():
         else:
             print "Error! %s file doesn't exist" % options.config_file
             exit(0)
-        params = json.loads(json_file_content)
-    else:
-        params['api_token'] = options.api_token
-        params['team_token'] = options.team_token
-        params['notify'] = options.notify
-        params['notes'] = options.notes
-        params['distribution_lists'] = options.distribution_lists
+        params = dict(params.items() + json.loads(json_file_content).items())
 
     if not 'notes' in params or not params['notes']:
         params['notes'] = raw_input("Release Notes - What's new in this build? \n> ")
