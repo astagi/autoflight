@@ -1,3 +1,5 @@
 *.apk
 .DS_Store
 config.json
+dist
+*.egg-info
